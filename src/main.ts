@@ -11,7 +11,7 @@ async function bootstrap() {
   //   exclude: ['/health'],
   // });
   const options = new DocumentBuilder()
-    .setTitle('API Creatorhub CMS')
+    .setTitle('API Creatorhub')
     .setDescription('')
     .setVersion('1.0')
     .addBearerAuth()
