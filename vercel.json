@@ -3,11 +3,11 @@
     "env": {
         "PORT": 9090,
         "MONGO_URI": "mongodb+srv://damanhtuan24022000:damanhtuan24022000@cluster1.zxnza45.mongodb.net/creatorhub_database?retryWrites=true&w=majority",
-        "AWS_PRIVATE_KEY": "sl6NrgWE1n1i38IU3UCdWy+B2cbW69awzVswyxdY",
-        "AWS_ACCESS_KEY": "AKIA3WGZHNHQZP6R5SM5",
-        "AWS_CDN": "https://dev-static.apero.vn",
-        "S3_BUCKET": "cdn-dev-static-aperovn",
-        "S3_REGION": "ap-southeast-1"
+        "AWS_SECRET_PRIVATE_KEY": "sl6NrgWE1n1i38IU3UCdWy+B2cbW69awzVswyxdY",
+        "AWS_SECRET_ACCESS_KEY": "AKIA3WGZHNHQZP6R5SM5",
+        "AWS_SECRET_CDN": "https://dev-static.apero.vn",
+        "S3_SECRET_BUCKET": "cdn-dev-static-aperovn",
+        "S3_SECRET_REGION": "ap-southeast-1"
     },
     "builds": [
         {
