@@ -4,7 +4,7 @@ import { AuthService } from './auth.service';
 import { LocalAuthGuard } from './guard/local-auth.guard';
 import { CreateUserDto } from '../user/dto/index.dto';
 import { UserService } from '../user/user.service';
-import { User } from 'src/utils/user.decorator';
+import { User } from '../utils/user.decorator';
 import { LoginUserDto } from './dto/index.dto';
 
 @ApiTags('Auth')

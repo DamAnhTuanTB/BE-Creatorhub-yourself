@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import * as AWS from 'aws-sdk';
 import { randomUUID } from 'crypto';
-import { getFileExtension, getFileName } from 'src/utils';
+import { getFileExtension, getFileName } from '../utils';
 
 @Injectable()
 export class S3Service {

@@ -4,9 +4,9 @@ import { HttpException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { UserDocument } from './model/user.model';
-import { encodePassword } from 'src/utils/bcrypt';
-import { EmailExists, SuccessRegister } from 'src/utils/message';
-import { formatedResponse } from 'src/utils';
+import { encodePassword } from '../utils/bcrypt';
+import { EmailExists, SuccessRegister } from '../utils/message';
+import { formatedResponse } from '../utils';
 
 @Injectable()
 export class UserService {
