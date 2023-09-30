@@ -1,7 +1,6 @@
 {
     "version": 2,
     "env": {
-        "PORT": 9090,
         "MONGO_URI": "mongodb+srv://damanhtuan24022000:damanhtuan24022000@cluster1.zxnza45.mongodb.net/creatorhub_database?retryWrites=true&w=majority",
         "AWS_SECRET_PRIVATE_KEY": "sl6NrgWE1n1i38IU3UCdWy+B2cbW69awzVswyxdY",
         "AWS_SECRET_ACCESS_KEY": "AKIA3WGZHNHQZP6R5SM5",

@@ -1,5 +1,4 @@
 export default () => ({
-  PORT: process.env.PORT,
   MONGO_URL: process.env.MONGO_URI,
   AWS: {
     PRIVATE_KEY: process.env.AWS_SECRET_PRIVATE_KEY,
