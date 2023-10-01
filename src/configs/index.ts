@@ -9,4 +9,15 @@ export default () => ({
     BUCKET: process.env.S3_SECRET_BUCKET,
     REGION: process.env.S3_SECRET_REGION,
   },
+  MAIL: {
+    MAIL_HOST: process.env.MAIL_HOST,
+    MAIL_USER: process.env.MAIL_USER,
+    MAIL_PASSWORD: process.env.MAIL_PASSWORD,
+  },
+  PAYMENT: {
+    STRIPE_PUBLIC_KEY: process.env.STRIPE_PUBLIC_KEY,
+    STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY,
+    STRIPE_WEBHOOK_ENDPOINT_SECRET: process.env.STRIPE_WEBHOOK_ENDPOINT_SECRET,
+  },
+  BASE_URL_CLIENT: process.env.BASE_URL_CLIENT,
 });

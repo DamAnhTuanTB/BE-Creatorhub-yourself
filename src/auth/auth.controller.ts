@@ -1,11 +1,24 @@
-import { Controller, Post, UseGuards, Body } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  HttpCode,
+  HttpStatus,
+  Param,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { AuthService } from './auth.service';
-import { LocalAuthGuard } from './guard/local-auth.guard';
 import { CreateUserDto } from '../user/dto/index.dto';
 import { UserService } from '../user/user.service';
 import { User } from '../utils/user.decorator';
-import { LoginUserDto } from './dto/index.dto';
+import { AuthService } from './auth.service';
+import {
+  CreateNewPasswordDto,
+  ForgetPasswordDto,
+  LoginUserDto,
+} from './dto/index.dto';
+import { LocalAuthGuard } from './guard/local-auth.guard';
 
 @ApiTags('Auth')
 @Controller({
@@ -21,12 +34,30 @@ export class AuthController {
   @UseGuards(LocalAuthGuard)
   @Post('login')
   async login(@User() user: CreateUserDto, @Body() loginUser: LoginUserDto) {
-    console.log(loginUser);
     return this.authService.login(user);
   }
 
   @Post('create')
+  @HttpCode(HttpStatus.CREATED)
   async createUser(@Body() createUserDto: CreateUserDto) {
-    return this.userService.createUser(createUserDto);
+    return this.authService.createUser(createUserDto);
+  }
+
+  @Get('verify/:token')
+  @HttpCode(HttpStatus.OK)
+  async verifyUser(@Param('token') token: string) {
+    return this.authService.verifyUser(token);
+  }
+
+  @Post('create-new-password')
+  @HttpCode(HttpStatus.OK)
+  async createNewPassword(@Body() body: CreateNewPasswordDto) {
+    return this.authService.createNewPassword(body);
+  }
+
+  @Post('forget-password')
+  @HttpCode(HttpStatus.OK)
+  async forgetPassword(@Body() body: ForgetPasswordDto) {
+    return this.authService.forgetPassword(body);
   }
 }

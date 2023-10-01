@@ -1,3 +1,3 @@
 export const jwtConstants = {
-  secret: 'Creatorhub_CMS',
+  secret: 'Creatorhub_AI',
 };
