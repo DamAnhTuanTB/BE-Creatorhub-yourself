@@ -1,13 +1,14 @@
+import { HttpModule } from '@nestjs/axios';
 import { Module } from '@nestjs/common';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { MongooseModule } from '@nestjs/mongoose';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { ConfigModule, ConfigService } from '@nestjs/config';
-import configuration from './configs';
-import { HttpModule } from '@nestjs/axios';
-import { MongooseModule } from '@nestjs/mongoose';
-import { S3Module } from './s3/s3.module';
-import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
+import configuration from './configs';
+import { S3Module } from './s3/s3.module';
+import { StoreModule } from './store/store.module';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { AuthModule } from './auth/auth.module';
     S3Module,
     AuthModule,
     UserModule,
+    StoreModule,
   ],
   controllers: [AppController],
   providers: [AppService],
