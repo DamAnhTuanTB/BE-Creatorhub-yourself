@@ -4,6 +4,7 @@ import { Model } from 'mongoose';
 import { S3Service } from './../s3/s3.service';
 
 import { ConfigService } from '@nestjs/config';
+import { formatedResponse } from '../utils';
 import { StoreDocument } from './model/store.model';
 @Injectable()
 export class StoreService {
@@ -46,5 +47,23 @@ export class StoreService {
     //   ...item,
     //   file: CONFIG.REACT_APP_AWS_CDN + '/' + presign?.data?.fields?.key,
     // });
+  }
+
+  async getListImage(userId: string) {
+    const results = await this.StoreModel.find({ userId }).lean();
+    return {
+      data: results.map((item: any) => {
+        const result: any = formatedResponse(item);
+        delete result.userId;
+        return result;
+      }),
+    };
+  }
+
+  async getDetailImage(id: string) {
+    const result = await this.StoreModel.findById('id').lean();
+    return {
+      data: formatedResponse(result),
+    };
   }
 }

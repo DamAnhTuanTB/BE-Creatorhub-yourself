@@ -1,6 +1,9 @@
 import {
   Body,
   Controller,
+  Get,
+  HttpCode,
+  HttpStatus,
   Post,
   UploadedFile,
   UseGuards,
@@ -24,6 +27,7 @@ export class StoreController {
   constructor(private readonly storeService: StoreService) {}
 
   @Post('save-image')
+  @HttpCode(HttpStatus.CREATED)
   @UseInterceptors(FileInterceptor('file'))
   saveImage(
     @UploadedFile() file,
@@ -31,5 +35,11 @@ export class StoreController {
     @User('_id') userId: string,
   ) {
     return this.storeService.saveImage(file, { ...body, userId });
+  }
+
+  @Get('')
+  @HttpCode(HttpStatus.OK)
+  getListImage(@User('_id') userId: string) {
+    return this.storeService.getListImage(userId);
   }
 }
