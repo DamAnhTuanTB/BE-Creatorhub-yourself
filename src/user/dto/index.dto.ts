@@ -1,7 +1,13 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Expose } from 'class-transformer';
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsEnum, IsNotEmpty, IsString } from 'class-validator';
 
+export enum TypeUseEnum {
+  AI_ART = 'AI_ART',
+  ENHANCE = 'ENHANCE',
+  REMOVE_BACKGROUND = 'REMOVE_BACKGROUND',
+  CROP = 'CROP',
+}
 export class CreateUserDto {
   @IsNotEmpty()
   @ApiProperty({ required: true })
@@ -26,4 +32,16 @@ export class CreateUserDto {
   @IsString()
   @Expose()
   lastName: string;
+}
+
+export class QueryTypeUseDto {
+  @IsNotEmpty()
+  @ApiProperty({
+    required: true,
+    enum: TypeUseEnum,
+    enumName: 'TypeUseEnum',
+  })
+  @IsEnum(TypeUseEnum)
+  @Expose()
+  type: TypeUseEnum;
 }

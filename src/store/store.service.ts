@@ -4,8 +4,13 @@ import { Model } from 'mongoose';
 import { S3Service } from './../s3/s3.service';
 
 import { ConfigService } from '@nestjs/config';
-import { formatedResponse } from '../utils';
+import { formatedResponse, getParamsPagination } from '../utils';
 import { StoreDocument } from './model/store.model';
+import {
+  QueryDeleteStoreDto,
+  QueryGetListStoreDto,
+  SortDateEnum,
+} from './dto/index.dto';
 @Injectable()
 export class StoreService {
   constructor(
@@ -49,8 +54,25 @@ export class StoreService {
     // });
   }
 
-  async getListImage(userId: string) {
-    const results = await this.StoreModel.find({ userId }).lean();
+  async getListImage(userId: string, query: QueryGetListStoreDto) {
+    const limit = Number(query?.limit) || 10;
+    const page = Number(query?.page) || 1;
+    const { skip } = getParamsPagination({ page, limit });
+
+    const sort: any = {};
+    if (query.sortDate === SortDateEnum.DECREASE) {
+      sort.createdAt = -1;
+    } else if (query.sortDate === SortDateEnum.INCREASE) {
+      sort.createdAt = 1;
+    }
+
+    const results = await this.StoreModel.find({ userId })
+      .sort(sort)
+      .skip(skip)
+      .limit(limit)
+      .lean()
+      .exec();
+
     return {
       data: results.map((item: any) => {
         const result: any = formatedResponse(item);
@@ -60,10 +82,19 @@ export class StoreService {
     };
   }
 
-  async getDetailImage(id: string) {
-    const result = await this.StoreModel.findById('id').lean();
+  // async getDetailImage(id: string) {
+  //   const result = await this.StoreModel.findById('id').lean();
+  //   return {
+  //     data: formatedResponse(result),
+  //   };
+  // }
+
+  async deleteImages(query: QueryDeleteStoreDto) {
+    await this.StoreModel.deleteMany({
+      _id: { $in: query.idArr },
+    });
     return {
-      data: formatedResponse(result),
+      message: 'OK',
     };
   }
 }

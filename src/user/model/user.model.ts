@@ -18,6 +18,9 @@ export class User {
   @Prop({ required: true })
   lastName: string;
 
+  @Prop({ required: true, default: 10 })
+  credits: number;
+
   @Prop({ required: true, default: false })
   isVerified: boolean;
 }

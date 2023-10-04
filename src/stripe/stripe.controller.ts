@@ -9,12 +9,15 @@ import {
   RawBodyRequest,
   Req,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import { Request } from 'express';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { StripeService } from './stripe.service';
 import { CreateOrderDto, QueryGetListPriceDto } from './dto/index.dto';
-import { MissStripeSignature } from 'src/utils/message';
+import { MissStripeSignature } from '../utils/message';
+import { User } from '../utils/user.decorator';
+import { JwtAuthGuard } from '../auth/guard/jwt-auth.guard';
 
 @ApiTags('Stripe')
 @Controller({
@@ -26,14 +29,16 @@ export class StripeController {
 
   @Get('prices')
   @HttpCode(HttpStatus.OK)
-  async getPrices(@Query() query: QueryGetListPriceDto) {
-    return this.stripeService.getPrices(query);
+  async getPrices() {
+    return this.stripeService.getPrices();
   }
 
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @Post('order')
   @HttpCode(HttpStatus.CREATED)
-  async createOrder(@Body() body: CreateOrderDto) {
-    return this.stripeService.createOrder(body);
+  async createOrder(@Body() body: CreateOrderDto, @User('_id') userId: string) {
+    return this.stripeService.createOrder(body, userId);
   }
 
   @Post('webhooks')

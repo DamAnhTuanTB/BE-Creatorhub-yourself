@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { UserService } from 'src/user/user.service';
-import { handleError } from 'src/utils';
+import { UserService } from '../user/user.service';
+import { handleError } from '../utils';
 import Stripe from 'stripe';
-import { CreateOrderDto, QueryGetListPriceDto } from './dto/index.dto';
+import { CreateOrderDto } from './dto/index.dto';
 
 @Injectable()
 export class StripeService {
@@ -20,27 +20,29 @@ export class StripeService {
     );
   }
 
-  async getPrices(query: QueryGetListPriceDto) {
+  async getPrices() {
     try {
       const prices = await this.stripe?.prices?.list({ active: true });
 
       return prices.data
-        .filter(
-          (item: any) =>
-            item?.metadata?.type === query?.type &&
-            item?.metadata?.label === 'ai-avatar',
-        )
+        .filter((item: any) => item?.metadata?.label === 'creatorhub')
         .sort(
           (a: any, b: any) => a?.metadata?.priceOrder - b?.metadata?.priceOrder,
-        );
+        )
+        .map((item: any) => ({
+          id: item?.id,
+          name: item?.metadata?.name,
+          price: Number(item?.metadata?.price),
+          credits: Number(item?.metadata?.credits),
+        }));
     } catch (error) {
       handleError(error);
     }
   }
 
-  async createOrder(body: CreateOrderDto) {
+  async createOrder(body: CreateOrderDto, userId: string) {
     try {
-      const { priceId, userId, email, redirectUrl } = body;
+      const { priceId, redirectUrl } = body;
       const paymentLinks = await this.stripe.paymentLinks.create({
         line_items: [{ price: priceId, quantity: 1 }],
         after_completion: {
@@ -51,9 +53,7 @@ export class StripeService {
         },
         // automatic_tax: { enabled: true },
       });
-      const paymentUrl =
-        paymentLinks.url +
-        `?prefilled_email=${email}&client_reference_id=${userId}&customer_email=${email}`;
+      const paymentUrl = paymentLinks.url + `?client_reference_id=${userId}`;
       return { url: paymentUrl };
     } catch (error) {
       handleError(error);
@@ -85,13 +85,12 @@ export class StripeService {
 
           if (
             detailPrice?.line_items?.data[0].price?.metadata?.label ===
-            'ai-avatar'
+            'creatorhub'
           ) {
-            // this.userService.updateUserWhenPaymentSuccess({
-            //   email: data?.object?.customer_details?.email,
-            //   userId,
-            //   priceInfo: detailPrice?.line_items?.data[0].price,
-            // });
+            this.userService.updateUserWhenPaymentSuccess(
+              userId,
+              detailPrice?.line_items?.data[0].price,
+            );
           }
 
         default:

@@ -1,10 +1,10 @@
-import { HttpStatus, Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { formatedResponse } from '../utils';
+import { formatedResponse, numberCreditUse } from '../utils';
 import { encodePassword } from '../utils/bcrypt';
 import { SuccessRegister } from '../utils/message';
-import { CreateUserDto } from './dto/index.dto';
+import { CreateUserDto, QueryTypeUseDto } from './dto/index.dto';
 import { UserDocument } from './model/user.model';
 
 @Injectable()
@@ -14,8 +14,9 @@ export class UserService {
     private readonly UserModel: Model<UserDocument>,
   ) {}
 
-  async getDetailUser(user: CreateUserDto) {
+  async getDetailUser(user: any) {
     delete user.password;
+    delete user.isVerified;
     return {
       data: formatedResponse(user),
     };
@@ -58,5 +59,36 @@ export class UserService {
     return {
       message: 'OK',
     };
+  }
+
+  async updateUserWhenPaymentSuccess(userId: string, price: any) {
+    const userCurrent: any = await this.UserModel.findById(userId).lean();
+    const creditsCurrent = userCurrent.credits || 0;
+    await this.UserModel.updateOne(
+      { _id: userId },
+      { credits: creditsCurrent + Number(price?.metadata?.credits) },
+    );
+    return {
+      message: 'OK',
+    };
+  }
+
+  async useCredits(userId: string, query: QueryTypeUseDto) {
+    const userCurrent: any = await this.UserModel.findById(userId).lean();
+    const creditsCurrent = userCurrent.credits;
+    if (creditsCurrent < numberCreditUse[query.type]) {
+      throw new HttpException(
+        'Your credits is not enable.',
+        HttpStatus.BAD_REQUEST,
+      );
+    } else {
+      await this.UserModel.updateOne(
+        { _id: userId },
+        { credits: creditsCurrent - numberCreditUse[query.type] },
+      );
+      return {
+        message: 'OK',
+      };
+    }
   }
 }

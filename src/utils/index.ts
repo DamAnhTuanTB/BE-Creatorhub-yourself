@@ -46,3 +46,10 @@ export const handleError = (error: any) => {
     throw new HttpException(message, status);
   } else throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
 };
+
+export const numberCreditUse = {
+  AI_ART: 5,
+  ENHANCE: 4,
+  REMOVE_BACKGROUND: 3,
+  CROP: 2,
+};

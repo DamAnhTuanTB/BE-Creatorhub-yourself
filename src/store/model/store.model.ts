@@ -14,6 +14,9 @@ export class Store {
 
   @Prop({ required: false, type: Object })
   config: any;
+
+  @Prop({ required: true, type: Date, default: new Date() })
+  createdAt: Date;
 }
 
 export const StoreSchema = SchemaFactory.createForClass(Store);

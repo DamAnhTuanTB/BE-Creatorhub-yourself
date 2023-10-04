@@ -1,5 +1,5 @@
 import { HttpModule } from '@nestjs/axios';
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, RequestMethod } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AppController } from './app.controller';
@@ -9,6 +9,9 @@ import configuration from './configs';
 import { S3Module } from './s3/s3.module';
 import { StoreModule } from './store/store.module';
 import { UserModule } from './user/user.module';
+import { StripeModule } from './stripe/stripe.module';
+import { RawBodyMiddleware } from './middlewares/raw-body.middleware';
+import { JsonBodyMiddleware } from './middlewares/json-body.middleware';
 
 @Module({
   imports: [
@@ -29,8 +32,21 @@ import { UserModule } from './user/user.module';
     AuthModule,
     UserModule,
     StoreModule,
+    StripeModule,
   ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(RawBodyMiddleware).forRoutes({
+      path: 'stripe/webhooks',
+      method: RequestMethod.POST,
+    });
+
+    consumer
+      .apply(JsonBodyMiddleware)
+      .exclude('stripe/webhooks')
+      .forRoutes('*');
+  }
+}

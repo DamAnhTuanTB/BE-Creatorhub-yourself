@@ -1,10 +1,12 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   HttpCode,
   HttpStatus,
   Post,
+  Query,
   UploadedFile,
   UseGuards,
   UseInterceptors,
@@ -13,8 +15,13 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../auth/guard/jwt-auth.guard';
 import { User } from '../utils/user.decorator';
-import { CreateStoreDto } from './dto/index.dto';
+import {
+  CreateStoreDto,
+  QueryDeleteStoreDto,
+  QueryGetListStoreDto,
+} from './dto/index.dto';
 import { StoreService } from './store.service';
+import { query } from 'express';
 
 @ApiTags('Store')
 @UseGuards(JwtAuthGuard)
@@ -39,7 +46,16 @@ export class StoreController {
 
   @Get('')
   @HttpCode(HttpStatus.OK)
-  getListImage(@User('_id') userId: string) {
-    return this.storeService.getListImage(userId);
+  getListImage(
+    @User('_id') userId: string,
+    @Query() query: QueryGetListStoreDto,
+  ) {
+    return this.storeService.getListImage(userId, query);
+  }
+
+  @Delete('')
+  @HttpCode(HttpStatus.OK)
+  deleteImage(@Query() query: QueryDeleteStoreDto) {
+    return this.storeService.deleteImages(query);
   }
 }

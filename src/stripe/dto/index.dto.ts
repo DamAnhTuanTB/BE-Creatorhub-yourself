@@ -19,18 +19,6 @@ export class CreateOrderDto {
   @IsString()
   @Expose()
   redirectUrl: string;
-
-  @IsOptional()
-  @ApiPropertyOptional()
-  @IsString()
-  @Expose()
-  email: string;
-
-  @IsOptional()
-  @ApiPropertyOptional()
-  @IsString()
-  @Expose()
-  userId: string;
 }
 
 export class QueryGetListPriceDto {
