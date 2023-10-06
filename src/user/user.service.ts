@@ -1,17 +1,19 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { formatedResponse, numberCreditUse } from '../utils';
+import { GoogleUser, formatedResponse, numberCreditUse } from '../utils';
 import { encodePassword } from '../utils/bcrypt';
 import { SuccessRegister } from '../utils/message';
 import { CreateUserDto, QueryTypeUseDto } from './dto/index.dto';
 import { UserDocument } from './model/user.model';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class UserService {
   constructor(
     @InjectModel('User')
     private readonly UserModel: Model<UserDocument>,
+    private readonly jwtService: JwtService,
   ) {}
 
   async getDetailUser(user: any) {
@@ -90,5 +92,30 @@ export class UserService {
         message: 'OK',
       };
     }
+  }
+
+  async oauth2WithGoogle(user: GoogleUser) {
+    const userCurrent = await this.UserModel.findOne({ email: user.email });
+    const token = this.jwtService.sign({ email: user.email });
+
+    if (userCurrent && !userCurrent.isVerified) {
+      await this.UserModel.updateOne(
+        { email: user.email },
+        { isVerified: true },
+      );
+    }
+
+    if (!userCurrent) {
+      await this.UserModel.create({
+        email: user.email,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        isVerified: true,
+      });
+    }
+
+    return {
+      accessToken: token,
+    };
   }
 }

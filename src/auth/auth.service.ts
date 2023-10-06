@@ -58,9 +58,7 @@ export class AuthService {
       subject: 'Xác minh email từ hệ thống Creatorhub AI',
       template: './verify-user',
       context: {
-        link: `${this.configService.get(
-          'BASE_URL_CLIENT',
-        )}/register/verify?token=${token}`,
+        link: `${body.redirectUrl}?token=${token}`,
       },
     });
     await this.userService.createUser(body);
@@ -87,9 +85,7 @@ export class AuthService {
         subject: 'Đổi mật khẩu từ tài khoản Creatorhub AI',
         template: './forget-password',
         context: {
-          link: `${this.configService.get(
-            'BASE_URL_CLIENT',
-          )}/forget-password?token=${token}`,
+          link: `${body.redirectUrl}?token=${token}`,
         },
       });
       return {

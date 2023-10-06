@@ -53,3 +53,14 @@ export const numberCreditUse = {
   REMOVE_BACKGROUND: 3,
   CROP: 2,
 };
+
+export type GoogleUser = {
+  email: string;
+  firstName: string;
+  lastName: string;
+  picture?: string;
+  accessToken: string;
+  refreshToken?: string;
+  paltform: string;
+  userType: string;
+};

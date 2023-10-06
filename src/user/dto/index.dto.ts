@@ -32,6 +32,12 @@ export class CreateUserDto {
   @IsString()
   @Expose()
   lastName: string;
+
+  @IsNotEmpty()
+  @ApiProperty({ required: true })
+  @IsString()
+  @Expose()
+  redirectUrl: string;
 }
 
 export class QueryTypeUseDto {

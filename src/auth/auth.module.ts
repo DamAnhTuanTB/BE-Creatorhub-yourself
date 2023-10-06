@@ -19,7 +19,7 @@ import { ConfigModule } from '@nestjs/config';
       signOptions: { expiresIn: '24h' },
     }),
     MailModule,
-    ConfigModule
+    ConfigModule,
   ],
   controllers: [AuthController],
   providers: [AuthService, LocalStrategy, JwtStrategy],

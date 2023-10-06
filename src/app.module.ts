@@ -12,6 +12,7 @@ import { UserModule } from './user/user.module';
 import { StripeModule } from './stripe/stripe.module';
 import { RawBodyMiddleware } from './middlewares/raw-body.middleware';
 import { JsonBodyMiddleware } from './middlewares/json-body.middleware';
+import { GoogleModule } from './google/google.module';
 
 @Module({
   imports: [
@@ -33,6 +34,7 @@ import { JsonBodyMiddleware } from './middlewares/json-body.middleware';
     UserModule,
     StoreModule,
     StripeModule,
+    GoogleModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -19,5 +19,9 @@ export default () => ({
     STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY,
     STRIPE_WEBHOOK_ENDPOINT_SECRET: process.env.STRIPE_WEBHOOK_ENDPOINT_SECRET,
   },
-  BASE_URL_CLIENT: process.env.BASE_URL_CLIENT,
+  GOOGLE_OAUTH: {
+    GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
+    GOOGLE_SECRET: process.env.GOOGLE_SECRET,
+    CALLBACK_URL: process.env.GOOGLE_CALLBACK_URL,
+  },
 });

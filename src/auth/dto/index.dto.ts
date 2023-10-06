@@ -22,6 +22,12 @@ export class ForgetPasswordDto {
   @IsString()
   @Expose()
   email: string;
+
+  @IsNotEmpty()
+  @ApiProperty({ required: true })
+  @IsString()
+  @Expose()
+  redirectUrl: string;
 }
 
 export class CreateNewPasswordDto {
