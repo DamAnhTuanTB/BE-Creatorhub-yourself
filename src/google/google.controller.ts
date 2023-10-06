@@ -1,4 +1,4 @@
-import { Controller, Get, Query, Req, Res, UseGuards } from '@nestjs/common';
+import { Controller, Get, Req, Res, UseGuards } from '@nestjs/common';
 import { GoogleService } from './google.service';
 import { Request, Response } from 'express';
 // import { AuthGuard } from '@nestjs/passport';
@@ -17,9 +17,7 @@ export class GoogleController {
   @Get()
   // @UseGuards(AuthGuard('google'))
   @UseGuards(GoogleOAuthGuard)
-  async googleAuth() {
-    console.log('hahahahaahah');
-  }
+  async googleAuth() {}
 
   @Get('redirect')
   // @UseGuards(AuthGuard('google'))
