@@ -9,3 +9,5 @@ export const ErrorForgetPassword =
 
 export const ErrorCreateNewPassword =
   'Token của bạn đã hết hạn. Vui lòng thực hiện lại đổi mật khẩu từ đẩu để nhận được liên kết đổi mật khẩu mới.';
+export const ErrorGetAgainVerifyUser =
+  'Email của bạn nhập không khớp với tài khoản trước đó. Vui lòng kiểm tra lại.';

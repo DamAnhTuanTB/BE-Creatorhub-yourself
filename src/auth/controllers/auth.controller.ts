@@ -6,6 +6,7 @@ import {
   HttpStatus,
   Param,
   Post,
+  Query,
   UseGuards,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
@@ -17,6 +18,7 @@ import {
   CreateNewPasswordDto,
   ForgetPasswordDto,
   GenerateNewTokenDto,
+  GetAgainVerifyUser,
   LoginUserDto,
 } from '../dto/index.dto';
 import { LocalAuthGuard } from '../guard/local-auth.guard';
@@ -50,6 +52,12 @@ export class AuthController {
     return this.authService.verifyUser(token);
   }
 
+  @Get('get-again-verify-user')
+  @HttpCode(HttpStatus.OK)
+  async getAgainVerifyUser(@Query() query: GetAgainVerifyUser) {
+    return this.authService.getAgainVerifyUser(query);
+  }
+
   @Post('create-new-password')
   @HttpCode(HttpStatus.OK)
   async createNewPassword(@Body() body: CreateNewPasswordDto) {
@@ -61,6 +69,7 @@ export class AuthController {
   async forgetPassword(@Body() body: ForgetPasswordDto) {
     return this.authService.forgetPassword(body);
   }
+
 
   @Post('generate-new-token')
   @HttpCode(HttpStatus.CREATED)

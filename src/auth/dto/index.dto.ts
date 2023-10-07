@@ -44,6 +44,20 @@ export class CreateNewPasswordDto {
   password: string;
 }
 
+export class GetAgainVerifyUser {
+  @IsNotEmpty()
+  @ApiProperty()
+  @IsString()
+  @Expose()
+  email: string;
+
+  @IsNotEmpty()
+  @ApiProperty({ required: true })
+  @IsString()
+  @Expose()
+  redirectUrl: string;
+}
+
 export class GenerateNewTokenDto {
   @IsNotEmpty()
   @ApiProperty()

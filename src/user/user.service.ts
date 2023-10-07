@@ -28,6 +28,10 @@ export class UserService {
     return await this.UserModel.findOne({ email, isVerified: true }).lean();
   }
 
+  async findUserByEmailNotActive(email: string) {
+    return await this.UserModel.findOne({ email, isVerified: false });
+  }
+
   async createUser(createUserDto: CreateUserDto) {
     const user = await this.UserModel.findOne({ email: createUserDto.email });
     const password = encodePassword(createUserDto.password);

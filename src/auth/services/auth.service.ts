@@ -13,6 +13,7 @@ import {
   EmailExists,
   ErrorCreateNewPassword,
   ErrorForgetPassword,
+  ErrorGetAgainVerifyUser,
   TokenExpired,
 } from '../../utils/message';
 import { UserService } from '../../user/user.service';
@@ -20,6 +21,7 @@ import {
   CreateNewPasswordDto,
   ForgetPasswordDto,
   GenerateNewTokenDto,
+  GetAgainVerifyUser,
 } from '../dto/index.dto';
 
 @Injectable()
@@ -60,16 +62,36 @@ export class AuthService {
     const token = this.jwtService.sign({ email: body.email });
     this.mailService.sendMail({
       to: body.email,
-      subject: 'Xác minh email từ hệ thống Creatorhub AI',
+      subject: 'Xác minh email đăng ký tài khoản từ hệ thống Creatorhub AI',
       template: './verify-user',
       context: {
-        link: `${body.redirectUrl}?token=${token}`,
+        link: `${body.redirectUrl}?token=${token}&email=${body.email}`,
       },
     });
     await this.userService.createUser(body);
     return {
       message: 'OK',
     };
+  }
+
+  async getAgainVerifyUser(query: GetAgainVerifyUser) {
+    const user = await this.userService.findUserByEmailNotActive(query.email);
+    if (user) {
+      const token = this.jwtService.sign({ email: query.email });
+      this.mailService.sendMail({
+        to: query.email,
+        subject: 'Xác minh email đăng ký tài khoản từ hệ thống Creatorhub AI',
+        template: './verify-user',
+        context: {
+          link: `${query.redirectUrl}?token=${token}&email=${query.email}`,
+        },
+      });
+      return {
+        message: 'OK',
+      };
+    } else {
+      throw new HttpException(ErrorGetAgainVerifyUser, HttpStatus.BAD_REQUEST);
+    }
   }
 
   async verifyUser(token: string) {
@@ -90,7 +112,7 @@ export class AuthService {
         subject: 'Đổi mật khẩu từ tài khoản Creatorhub AI',
         template: './forget-password',
         context: {
-          link: `${body.redirectUrl}?token=${token}`,
+          link: `${body.redirectUrl}?token=${token}&email=${body.email}`,
         },
       });
       return {
