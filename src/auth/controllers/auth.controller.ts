@@ -9,16 +9,17 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { CreateUserDto } from '../user/dto/index.dto';
-import { UserService } from '../user/user.service';
-import { User } from '../utils/user.decorator';
-import { AuthService } from './auth.service';
+import { CreateUserDto } from '../../user/dto/index.dto';
+import { UserService } from '../../user/user.service';
+import { User } from '../../utils/user.decorator';
+import { AuthService } from '../services/auth.service';
 import {
   CreateNewPasswordDto,
   ForgetPasswordDto,
+  GenerateNewTokenDto,
   LoginUserDto,
-} from './dto/index.dto';
-import { LocalAuthGuard } from './guard/local-auth.guard';
+} from '../dto/index.dto';
+import { LocalAuthGuard } from '../guard/local-auth.guard';
 
 @ApiTags('Auth')
 @Controller({
@@ -59,5 +60,11 @@ export class AuthController {
   @HttpCode(HttpStatus.OK)
   async forgetPassword(@Body() body: ForgetPasswordDto) {
     return this.authService.forgetPassword(body);
+  }
+
+  @Post('generate-new-token')
+  @HttpCode(HttpStatus.CREATED)
+  async generateNewToken(@Body() body: GenerateNewTokenDto) {
+    return this.authService.generateNewToken(body);
   }
 }

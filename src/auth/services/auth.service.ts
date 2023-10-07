@@ -6,17 +6,21 @@ import {
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
-import { MailService } from '../mail/mail.service';
-import { CreateUserDto } from '../user/dto/index.dto';
-import { comparePassword } from '../utils/bcrypt';
+import { MailService } from '../../mail/mail.service';
+import { CreateUserDto } from '../../user/dto/index.dto';
+import { comparePassword } from '../../utils/bcrypt';
 import {
   EmailExists,
   ErrorCreateNewPassword,
   ErrorForgetPassword,
   TokenExpired,
-} from '../utils/message';
-import { UserService } from './../user/user.service';
-import { CreateNewPasswordDto, ForgetPasswordDto } from './dto/index.dto';
+} from '../../utils/message';
+import { UserService } from '../../user/user.service';
+import {
+  CreateNewPasswordDto,
+  ForgetPasswordDto,
+  GenerateNewTokenDto,
+} from '../dto/index.dto';
 
 @Injectable()
 export class AuthService {
@@ -44,6 +48,7 @@ export class AuthService {
     const payload = { email: user.email, _id: user._id };
     return {
       token: this.jwtService.sign(payload),
+      refreshToken: this.jwtService.sign(payload, { expiresIn: '7d' }),
     };
   }
 
@@ -103,6 +108,26 @@ export class AuthService {
       // return this.userService.verifyUser(user.email);
     } catch {
       throw new HttpException(ErrorCreateNewPassword, HttpStatus.BAD_REQUEST);
+    }
+  }
+
+  async generateNewToken(body: GenerateNewTokenDto) {
+    try {
+      const payload = this.jwtService.verify(body.refreshToken);
+      const token = this.jwtService.sign({
+        email: payload.email,
+        _id: payload._id,
+      });
+      const refreshToken = this.jwtService.sign(
+        { email: payload.email, _id: payload._id },
+        { expiresIn: '7d' },
+      );
+      return {
+        token,
+        refreshToken,
+      };
+    } catch (error: any) {
+      throw new UnauthorizedException();
     }
   }
 }

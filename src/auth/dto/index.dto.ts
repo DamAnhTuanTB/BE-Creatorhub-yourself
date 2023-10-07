@@ -43,3 +43,11 @@ export class CreateNewPasswordDto {
   @Expose()
   password: string;
 }
+
+export class GenerateNewTokenDto {
+  @IsNotEmpty()
+  @ApiProperty()
+  @IsString()
+  @Expose()
+  refreshToken: string;
+}

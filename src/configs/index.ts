@@ -24,4 +24,9 @@ export default () => ({
     GOOGLE_SECRET: process.env.GOOGLE_SECRET,
     CALLBACK_URL: process.env.GOOGLE_CALLBACK_URL,
   },
+  FACEBOOK_OAUTH: {
+    FACEBOOK_APP_ID: process.env.FACEBOOK_APP_ID,
+    FACEBOOK_APP_SECRET: process.env.FACEBOOK_APP_SECRET,
+    CALLBACK_URL: process.env.FACEBOOK_CALLBACK_URL
+  },
 });

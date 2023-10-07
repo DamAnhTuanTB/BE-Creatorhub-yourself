@@ -94,9 +94,14 @@ export class UserService {
     }
   }
 
-  async oauth2WithGoogle(user: GoogleUser) {
+  async loginWithOauth2(user: GoogleUser) {
     const userCurrent = await this.UserModel.findOne({ email: user.email });
     const token = this.jwtService.sign({ email: user.email });
+
+    const refreshToken = this.jwtService.sign(
+      { email: user.email },
+      { expiresIn: '7d' },
+    );
 
     if (userCurrent && !userCurrent.isVerified) {
       await this.UserModel.updateOne(
@@ -116,6 +121,7 @@ export class UserService {
 
     return {
       accessToken: token,
+      refreshToken,
     };
   }
 }
