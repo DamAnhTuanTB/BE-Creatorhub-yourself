@@ -4,8 +4,14 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule, { bodyParser: false });
-  app.enableCors();
+  const app = await NestFactory.create(AppModule, {
+    bodyParser: false,
+    cors: true,
+  });
+  app.enableCors({
+    origin: '*',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  });
 
   // app.setGlobalPrefix('nextapi', {
   //   exclude: ['/health'],
