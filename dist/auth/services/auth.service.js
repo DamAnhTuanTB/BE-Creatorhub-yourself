@@ -27,9 +27,14 @@ let AuthService = class AuthService {
     async validateUser(email, password) {
         const userDB = await this.userService.findUserByEmail(email);
         if (userDB) {
-            const matched = (0, bcrypt_1.comparePassword)(password, userDB.password);
-            if (matched) {
-                return userDB;
+            if (userDB?.password) {
+                const matched = (0, bcrypt_1.comparePassword)(password, userDB.password);
+                if (matched) {
+                    return userDB;
+                }
+                else {
+                    return null;
+                }
             }
             else {
                 return null;
