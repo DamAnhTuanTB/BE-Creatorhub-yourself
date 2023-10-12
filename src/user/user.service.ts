@@ -1,4 +1,5 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { GoogleUser, formatedResponse, numberCreditUse } from '../utils';
@@ -6,7 +7,6 @@ import { encodePassword } from '../utils/bcrypt';
 import { SuccessRegister } from '../utils/message';
 import { CreateUserDto, QueryTypeUseDto } from './dto/index.dto';
 import { UserDocument } from './model/user.model';
-import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class UserService {
@@ -118,7 +118,7 @@ export class UserService {
       await this.UserModel.create({
         email: user.email,
         firstName: user.firstName,
-        lastName: user.lastName,
+        lastName: user.lastName || '',
         isVerified: true,
       });
     }

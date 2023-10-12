@@ -23,11 +23,11 @@
 /// <reference types="mongoose/types/virtuals" />
 /// <reference types="mongoose/types/inferschematype" />
 import { HttpStatus } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
 import { Model } from 'mongoose';
 import { GoogleUser } from '../utils';
 import { CreateUserDto, QueryTypeUseDto } from './dto/index.dto';
 import { UserDocument } from './model/user.model';
-import { JwtService } from '@nestjs/jwt';
 export declare class UserService {
     private readonly UserModel;
     private readonly jwtService;

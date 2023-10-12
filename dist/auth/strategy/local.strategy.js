@@ -22,7 +22,7 @@ let LocalStrategy = class LocalStrategy extends (0, passport_1.PassportStrategy)
     async validate(email, password) {
         const user = await this.authService.validateUser(email, password);
         if (!user) {
-            throw new common_1.UnauthorizedException('Email hoặc mật khẩu không đúng. Vui lòng kiểm tra lại.');
+            throw new common_1.BadRequestException('Email hoặc mật khẩu không đúng. Vui lòng kiểm tra lại.');
         }
         return user;
     }

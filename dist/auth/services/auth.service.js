@@ -14,9 +14,9 @@ const common_1 = require("@nestjs/common");
 const config_1 = require("@nestjs/config");
 const jwt_1 = require("@nestjs/jwt");
 const mail_service_1 = require("../../mail/mail.service");
+const user_service_1 = require("../../user/user.service");
 const bcrypt_1 = require("../../utils/bcrypt");
 const message_1 = require("../../utils/message");
-const user_service_1 = require("../../user/user.service");
 let AuthService = class AuthService {
     constructor(userService, jwtService, mailService, configService) {
         this.userService = userService;
@@ -36,7 +36,7 @@ let AuthService = class AuthService {
             }
         }
         else {
-            throw new common_1.UnauthorizedException();
+            return null;
         }
     }
     async login(user) {

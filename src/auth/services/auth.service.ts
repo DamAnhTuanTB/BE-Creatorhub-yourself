@@ -8,6 +8,7 @@ import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { MailService } from '../../mail/mail.service';
 import { CreateUserDto } from '../../user/dto/index.dto';
+import { UserService } from '../../user/user.service';
 import { comparePassword } from '../../utils/bcrypt';
 import {
   EmailExists,
@@ -16,7 +17,6 @@ import {
   ErrorGetAgainVerifyUser,
   TokenExpired,
 } from '../../utils/message';
-import { UserService } from '../../user/user.service';
 import {
   CreateNewPasswordDto,
   ForgetPasswordDto,
@@ -43,7 +43,7 @@ export class AuthService {
         return null;
       }
     } else {
-      throw new UnauthorizedException();
+      return null;
     }
   }
   async login(user: any) {

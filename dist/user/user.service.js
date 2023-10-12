@@ -14,12 +14,12 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserService = void 0;
 const common_1 = require("@nestjs/common");
+const jwt_1 = require("@nestjs/jwt");
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
 const utils_1 = require("../utils");
 const bcrypt_1 = require("../utils/bcrypt");
 const message_1 = require("../utils/message");
-const jwt_1 = require("@nestjs/jwt");
 let UserService = class UserService {
     constructor(UserModel, jwtService) {
         this.UserModel = UserModel;
@@ -100,7 +100,7 @@ let UserService = class UserService {
             await this.UserModel.create({
                 email: user.email,
                 firstName: user.firstName,
-                lastName: user.lastName,
+                lastName: user.lastName || '',
                 isVerified: true,
             });
         }
