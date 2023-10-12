@@ -94,13 +94,14 @@ let UserService = class UserService {
         const token = this.jwtService.sign({ email: user.email });
         const refreshToken = this.jwtService.sign({ email: user.email }, { expiresIn: '7d' });
         if (userCurrent && !userCurrent.isVerified) {
-            await this.UserModel.updateOne({ email: user.email }, { isVerified: true });
+            await this.UserModel.updateOne({ email: user.email }, { isVerified: true, avatar: user.picture });
         }
         if (!userCurrent) {
             await this.UserModel.create({
                 email: user.email,
                 firstName: user.firstName,
                 lastName: user.lastName || '',
+                avatar: user.picture,
                 isVerified: true,
             });
         }

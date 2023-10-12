@@ -15,8 +15,11 @@ export class User {
   @Prop({ required: true })
   firstName: string;
 
-  @Prop({ required: true })
+  @Prop({ required: false })
   lastName: string;
+
+  @Prop({ required: false })
+  avatar: string;
 
   @Prop({ required: true, default: 10 })
   credits: number;

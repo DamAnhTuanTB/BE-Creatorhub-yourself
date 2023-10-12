@@ -110,7 +110,7 @@ export class UserService {
     if (userCurrent && !userCurrent.isVerified) {
       await this.UserModel.updateOne(
         { email: user.email },
-        { isVerified: true },
+        { isVerified: true, avatar: user.picture },
       );
     }
 
@@ -119,6 +119,7 @@ export class UserService {
         email: user.email,
         firstName: user.firstName,
         lastName: user.lastName || '',
+        avatar: user.picture,
         isVerified: true,
       });
     }

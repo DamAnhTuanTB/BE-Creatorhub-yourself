@@ -29,6 +29,7 @@ export declare class User {
     password: string;
     firstName: string;
     lastName: string;
+    avatar: string;
     credits: number;
     isVerified: boolean;
 }
