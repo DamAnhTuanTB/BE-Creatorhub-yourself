@@ -8,6 +8,7 @@ async function bootstrap() {
     bodyParser: false,
     cors: true,
   });
+
   app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
@@ -32,6 +33,6 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('api', app, document);
   app.useGlobalPipes(new ValidationPipe());
-  await app.listen(9090);
+  await app.listen(3000);
 }
 bootstrap();
