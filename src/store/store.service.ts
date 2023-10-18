@@ -5,12 +5,12 @@ import { S3Service } from './../s3/s3.service';
 
 import { ConfigService } from '@nestjs/config';
 import { formatedResponse, getParamsPagination } from '../utils';
-import { StoreDocument } from './model/store.model';
 import {
   QueryDeleteStoreDto,
   QueryGetListStoreDto,
   SortDateEnum,
 } from './dto/index.dto';
+import { StoreDocument } from './model/store.model';
 @Injectable()
 export class StoreService {
   constructor(
@@ -66,6 +66,8 @@ export class StoreService {
       sort.createdAt = 1;
     }
 
+    const total = await this.StoreModel.countDocuments({ userId });
+
     const results = await this.StoreModel.find({ userId })
       .sort(sort)
       .skip(skip)
@@ -74,6 +76,9 @@ export class StoreService {
       .exec();
 
     return {
+      page,
+      limit,
+      total,
       data: results.map((item: any) => {
         const result: any = formatedResponse(item);
         delete result.userId;
