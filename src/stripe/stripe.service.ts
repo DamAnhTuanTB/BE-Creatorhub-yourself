@@ -66,7 +66,7 @@ export class StripeService {
       event = this.stripe.webhooks.constructEvent(
         body,
         signature,
-        'whsec_H5ugaxLEh1G5vB0n4z4J6Re69eKNukRl',
+        'whsec_Kwh0O5BM9JnSYjNis3irrNKqLEqmSRr8',
       );
       const data = event?.data;
       const eventType = event.type || '';

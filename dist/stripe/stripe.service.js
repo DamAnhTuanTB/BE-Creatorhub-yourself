@@ -62,7 +62,7 @@ let StripeService = class StripeService {
     async listenWebhooks(signature, body) {
         let event;
         try {
-            event = this.stripe.webhooks.constructEvent(body, signature, 'whsec_H5ugaxLEh1G5vB0n4z4J6Re69eKNukRl');
+            event = this.stripe.webhooks.constructEvent(body, signature, 'whsec_Kwh0O5BM9JnSYjNis3irrNKqLEqmSRr8');
             const data = event?.data;
             const eventType = event.type || '';
             switch (eventType) {
