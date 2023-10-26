@@ -12,14 +12,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.StripeService = void 0;
 const common_1 = require("@nestjs/common");
 const config_1 = require("@nestjs/config");
+const stripe_1 = require("stripe");
 const user_service_1 = require("../user/user.service");
 const utils_1 = require("../utils");
-const stripe_1 = require("stripe");
 let StripeService = class StripeService {
     constructor(userService, configService) {
         this.userService = userService;
         this.configService = configService;
-        this.stripe = new stripe_1.default(configService.get('PAYMENT.STRIPE_SECRET_KEY'), {
+        this.stripe = new stripe_1.default('sk_test_51NKzLUFXtVXZe9q3vrCTYTY3Bct5imsQoHlqo8nGcm5kZWs0tY8ZvLJWBygiodRnB6BhbpdnqBuMKrl1mrsMY9gR00FmUxJqdR', {
             apiVersion: '2023-08-16',
         });
     }
@@ -62,7 +62,7 @@ let StripeService = class StripeService {
     async listenWebhooks(signature, body) {
         let event;
         try {
-            event = this.stripe.webhooks.constructEvent(body, signature, this.configService.get('PAYMENT.STRIPE_WEBHOOK_ENDPOINT_SECRET'));
+            event = this.stripe.webhooks.constructEvent(body, signature, 'whsec_H5ugaxLEh1G5vB0n4z4J6Re69eKNukRl');
             const data = event?.data;
             const eventType = event.type || '';
             switch (eventType) {

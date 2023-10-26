@@ -14,11 +14,11 @@ import { join } from 'path';
         // transport: 'smtps://user@example.com:topsecret@smtp.example.com',
         // or
         transport: {
-          host: config.get('MAIL.MAIL_HOST'),
+          host: 'smtp.gmail.com',
           secure: false,
           auth: {
-            user: config.get('MAIL.MAIL_USER'),
-            pass: config.get('MAIL.MAIL_PASSWORD'),
+            user: 'anhtuantb2422@gmail.com',
+            pass: 'cxxlbxgqdfjrttqh',
           },
           // auth: {
           //   user: 'anhtuantb2422@gmail.com',

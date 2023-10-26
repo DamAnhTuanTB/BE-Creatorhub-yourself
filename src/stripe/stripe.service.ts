@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import Stripe from 'stripe';
 import { UserService } from '../user/user.service';
 import { handleError } from '../utils';
-import Stripe from 'stripe';
 import { CreateOrderDto } from './dto/index.dto';
 
 @Injectable()
@@ -13,7 +13,7 @@ export class StripeService {
     private readonly configService: ConfigService,
   ) {
     this.stripe = new Stripe(
-      configService.get<string>('PAYMENT.STRIPE_SECRET_KEY'),
+      'sk_test_51NKzLUFXtVXZe9q3vrCTYTY3Bct5imsQoHlqo8nGcm5kZWs0tY8ZvLJWBygiodRnB6BhbpdnqBuMKrl1mrsMY9gR00FmUxJqdR',
       {
         apiVersion: '2023-08-16',
       },
@@ -66,9 +66,7 @@ export class StripeService {
       event = this.stripe.webhooks.constructEvent(
         body,
         signature,
-        this.configService.get<string>(
-          'PAYMENT.STRIPE_WEBHOOK_ENDPOINT_SECRET',
-        ),
+        'whsec_H5ugaxLEh1G5vB0n4z4J6Re69eKNukRl',
       );
       const data = event?.data;
       const eventType = event.type || '';
