@@ -32,6 +32,9 @@ export declare class StoreController {
         _id: import("mongoose").Types.ObjectId;
     }>;
     getListImage(userId: string, query: QueryGetListStoreDto): Promise<{
+        page: number;
+        limit: number;
+        total: number;
         data: any[];
     }>;
     deleteImage(query: QueryDeleteStoreDto): Promise<{

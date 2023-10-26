@@ -21,7 +21,6 @@ import {
   QueryGetListStoreDto,
 } from './dto/index.dto';
 import { StoreService } from './store.service';
-import { query } from 'express';
 
 @ApiTags('Store')
 @UseGuards(JwtAuthGuard)

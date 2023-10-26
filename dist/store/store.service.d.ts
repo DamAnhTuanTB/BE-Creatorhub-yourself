@@ -25,8 +25,8 @@
 import { Model } from 'mongoose';
 import { S3Service } from './../s3/s3.service';
 import { ConfigService } from '@nestjs/config';
-import { StoreDocument } from './model/store.model';
 import { QueryDeleteStoreDto, QueryGetListStoreDto } from './dto/index.dto';
+import { StoreDocument } from './model/store.model';
 export declare class StoreService {
     private readonly StoreModel;
     private readonly s3Service;
@@ -36,6 +36,9 @@ export declare class StoreService {
         _id: import("mongoose").Types.ObjectId;
     }>;
     getListImage(userId: string, query: QueryGetListStoreDto): Promise<{
+        page: number;
+        limit: number;
+        total: number;
         data: any[];
     }>;
     deleteImages(query: QueryDeleteStoreDto): Promise<{
