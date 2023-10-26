@@ -2,6 +2,7 @@
     "version": 2,
     "env": {
         "STRIPE_WEBHOOK_ENDPOINT_SECRET": "whsec_H5ugaxLEh1G5vB0n4z4J6Re69eKNukRl",
+        "MAIL_HOST": "smtp.gmail.com",
         "MAIL_PASSWORD": "cxxlbxgqdfjrttqh",
         "MAIL_USER": "anhtuantb2422@gmail.com",
         "STRIPE_SECRET_KEY": "sk_test_51NKzLUFXtVXZe9q3vrCTYTY3Bct5imsQoHlqo8nGcm5kZWs0tY8ZvLJWBygiodRnB6BhbpdnqBuMKrl1mrsMY9gR00FmUxJqdR",
@@ -10,7 +11,11 @@
         "AWS_SECRET_ACCESS_KEY": "AKIA3WGZHNHQZP6R5SM5",
         "AWS_SECRET_CDN": "https://dev-static.apero.vn",
         "S3_SECRET_BUCKET": "cdn-dev-static-aperovn",
-        "S3_SECRET_REGION": "ap-southeast-1"
+        "S3_SECRET_REGION": "ap-southeast-1",
+        "GOOGLE_CLIENT_ID": "126640877171-sjmlc1qg0ikcnbmq5u4r7eo2eu6d92ul.apps.googleusercontent.com",
+        "GOOGLE_SECRET": "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",
+        "FACEBOOK_APP_ID": "242301361960773",
+        "FACEBOOK_APP_SECRET": "30e61403975c54cb1d38ba2deee14adb"
     },
     "builds": [
         {
