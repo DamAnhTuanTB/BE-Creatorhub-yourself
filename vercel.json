@@ -3,7 +3,7 @@
     "env": {
         "STRIPE_WEBHOOK_ENDPOINT_SECRET": "whsec_H5ugaxLEh1G5vB0n4z4J6Re69eKNukRl",
         "MAIL_HOST": "smtp.gmail.com",
-        "MAIL_PASSWORD": "cxxlbxgqdfjrttqh",
+        "MAIL_PASSWORD": "ysqzherxmolmgzmr",
         "MAIL_USER": "anhtuantb2422@gmail.com",
         "STRIPE_SECRET_KEY": "sk_test_51NKzLUFXtVXZe9q3vrCTYTY3Bct5imsQoHlqo8nGcm5kZWs0tY8ZvLJWBygiodRnB6BhbpdnqBuMKrl1mrsMY9gR00FmUxJqdR",
         "MONGO_URI": "mongodb+srv://damanhtuan24022000:damanhtuan24022000@cluster1.zxnza45.mongodb.net/creatorhub_database?retryWrites=true&w=majority",

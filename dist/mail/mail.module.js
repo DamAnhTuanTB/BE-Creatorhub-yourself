@@ -27,7 +27,7 @@ exports.MailModule = MailModule = __decorate([
                         secure: false,
                         auth: {
                             user: 'anhtuantb2422@gmail.com',
-                            pass: 'cxxlbxgqdfjrttqh',
+                            pass: 'ysqzherxmolmgzmr',
                         },
                     },
                     defaults: {

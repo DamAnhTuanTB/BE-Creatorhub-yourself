@@ -18,7 +18,7 @@ import { join } from 'path';
           secure: false,
           auth: {
             user: 'anhtuantb2422@gmail.com',
-            pass: 'cxxlbxgqdfjrttqh',
+            pass: 'ysqzherxmolmgzmr',
           },
           // auth: {
           //   user: 'anhtuantb2422@gmail.com',
