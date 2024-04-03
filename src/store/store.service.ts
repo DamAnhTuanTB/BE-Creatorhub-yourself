@@ -66,9 +66,9 @@ export class StoreService {
       sort.createdAt = 1;
     }
 
-    const total = await this.StoreModel.countDocuments({ userId });
+    const total = await this.StoreModel.countDocuments();
 
-    const results = await this.StoreModel.find({ userId })
+    const results = await this.StoreModel.find()
       .sort(sort)
       .skip(skip)
       .limit(limit)

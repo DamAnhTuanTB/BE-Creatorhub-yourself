@@ -24,7 +24,7 @@ exports.MailModule = MailModule = __decorate([
                 useFactory: async (config) => ({
                     transport: {
                         host: 'smtp.gmail.com',
-                        secure: false,
+                        secure: true,
                         auth: {
                             user: 'anhtuantb2422@gmail.com',
                             pass: 'ysqzherxmolmgzmr',

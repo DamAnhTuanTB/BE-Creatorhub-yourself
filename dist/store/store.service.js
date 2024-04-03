@@ -44,8 +44,8 @@ let StoreService = class StoreService {
         else if (query.sortDate === index_dto_1.SortDateEnum.INCREASE) {
             sort.createdAt = 1;
         }
-        const total = await this.StoreModel.countDocuments({ userId });
-        const results = await this.StoreModel.find({ userId })
+        const total = await this.StoreModel.countDocuments();
+        const results = await this.StoreModel.find()
             .sort(sort)
             .skip(skip)
             .limit(limit)
