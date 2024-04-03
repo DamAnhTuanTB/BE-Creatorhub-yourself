@@ -15,7 +15,7 @@ import { join } from 'path';
         // or
         transport: {
           host: 'smtp.gmail.com',
-          secure: false,
+          secure: true,
           auth: {
             user: 'anhtuantb2422@gmail.com',
             pass: 'ysqzherxmolmgzmr',
