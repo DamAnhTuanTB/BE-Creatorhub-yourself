@@ -34,7 +34,19 @@ async function bootstrap() {
     .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, options);
-  SwaggerModule.setup('api', app, document);
+  SwaggerModule.setup('api', app, document, {
+    customSiteTitle: 'Tài liệu api dự án Creatohub AI',
+    customfavIcon: 'https://avatars.githubusercontent.com/u/6936373?s=200&v=4',
+    customJs: [
+      'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui-bundle.min.js',
+      'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui-standalone-preset.min.js',
+    ],
+    customCssUrl: [
+      'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui.min.css',
+      'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui-standalone-preset.min.css',
+      'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui.css',
+    ],
+  });
   app.useGlobalPipes(new ValidationPipe());
   await app.listen(9090);
 }
