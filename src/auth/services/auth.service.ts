@@ -64,7 +64,7 @@ export class AuthService {
       throw new HttpException(EmailExists, HttpStatus.BAD_REQUEST);
     }
     const token = this.jwtService.sign({ email: body.email });
-    this.mailService.sendMail({
+    await this.mailService.sendMail({
       to: body.email,
       subject: 'Xác minh email đăng ký tài khoản từ hệ thống Creatorhub AI',
       template: './verify-user',
@@ -82,7 +82,7 @@ export class AuthService {
     const user = await this.userService.findUserByEmailNotActive(query.email);
     if (user) {
       const token = this.jwtService.sign({ email: query.email });
-      this.mailService.sendMail({
+      await this.mailService.sendMail({
         to: query.email,
         subject: 'Xác minh email đăng ký tài khoản từ hệ thống Creatorhub AI',
         template: './verify-user',
@@ -111,7 +111,7 @@ export class AuthService {
     const userDB = await this.userService.findUserByEmail(body.email);
     if (userDB) {
       const token = this.jwtService.sign({ email: body.email });
-      this.mailService.sendMail({
+      await this.mailService.sendMail({
         to: body.email,
         subject: 'Đổi mật khẩu từ tài khoản Creatorhub AI',
         template: './forget-password',
